@@ -3,7 +3,7 @@ package com.springsecurity.class7.security.provider;
 import com.springsecurity.class7.entities.Otp;
 import com.springsecurity.class7.security.authentication.OtpAuthentication;
 import com.springsecurity.class7.service.JpaOtpService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class OtpAuthenticationProvider implements AuthenticationProvider {
 
-    private final JpaOtpService jpaOtpService;
+    @Autowired
+    private JpaOtpService jpaOtpService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -33,6 +33,6 @@ public class OtpAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return OtpAuthenticationProvider.class.equals(aClass);
+        return OtpAuthentication.class.equals(aClass);
     }
 }

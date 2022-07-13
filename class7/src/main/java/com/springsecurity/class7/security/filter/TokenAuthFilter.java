@@ -1,7 +1,8 @@
 package com.springsecurity.class7.security.filter;
 
 import com.springsecurity.class7.security.authentication.TokenAuthentication;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -14,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
 public class TokenAuthFilter extends OncePerRequestFilter {
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

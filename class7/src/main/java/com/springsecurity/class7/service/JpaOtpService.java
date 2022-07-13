@@ -2,16 +2,16 @@ package com.springsecurity.class7.service;
 
 import com.springsecurity.class7.entities.Otp;
 import com.springsecurity.class7.repository.OtpRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class JpaOtpService {
 
-    private final OtpRepository otpRepository;
+    @Autowired
+    private OtpRepository otpRepository;
 
     public Otp loadOtpByUsername(String username){
         Optional<Otp> optional = otpRepository.findOtpByUsername(username);

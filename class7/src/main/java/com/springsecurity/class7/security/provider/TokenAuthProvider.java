@@ -2,7 +2,7 @@ package com.springsecurity.class7.security.provider;
 
 import com.springsecurity.class7.TokenManager.TokenManager;
 import com.springsecurity.class7.security.authentication.TokenAuthentication;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -10,10 +10,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class TokenAuthProvider implements AuthenticationProvider {
 
-    private final TokenManager tokenManager;
+    @Autowired
+    private TokenManager tokenManager;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -27,6 +27,6 @@ public class TokenAuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return TokenAuthProvider.class.equals(aClass);
+        return TokenAuthentication.class.equals(aClass);
     }
 }
