@@ -3,7 +3,6 @@ package com.springsecurity.class6.service;
 import com.springsecurity.class6.entities.Otp;
 import com.springsecurity.class6.repository.OtpRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

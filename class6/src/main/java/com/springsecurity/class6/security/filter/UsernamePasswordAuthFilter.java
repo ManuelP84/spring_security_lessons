@@ -1,9 +1,11 @@
 package com.springsecurity.class6.security.filter;
 
 import com.springsecurity.class6.entities.Otp;
+import com.springsecurity.class6.security.authentication.OtpAuthentication;
 import com.springsecurity.class6.security.authentication.UsernamePasswordAuthentication;
 import com.springsecurity.class6.service.JpaOtpService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -18,11 +20,13 @@ import java.util.Random;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
 public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
 
-    private final AuthenticationManager authenticationManager;
-    private final JpaOtpService jpaOtpService;
+    @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JpaOtpService jpaOtpService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -53,7 +57,7 @@ public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
         }else {
 
             //Step 1
-            Authentication auth = new UsernamePasswordAuthentication(username, otp);
+            Authentication auth = new OtpAuthentication(username, otp);
             authenticationManager.authenticate(auth);
 
             // Generate a token
